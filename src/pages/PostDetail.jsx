@@ -52,7 +52,7 @@ export default function PostDetail() {
   }
 
   return (
-    <Card bg="dark" className="text-white mt-4 mx-5 mb-5">
+    <Card bg="dark" className="text-white mt-4 mx-2 mb-5">
       <Card.Body>
         <PostInfo {...postData} />
         <PostActions uid={uid} id={id} onDelete={deletePostHandler} />
