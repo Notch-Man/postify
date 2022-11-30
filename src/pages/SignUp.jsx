@@ -13,7 +13,6 @@ import { updateProfile } from "firebase/auth";
 import { AuthContext } from "../store";
 
 import { useHistory } from "react-router-dom";
-import NotFound from "./NotFound";
 
 export default function SignUp() {
   const [createUserWithEmailAndPassword, _, loading, error] =
@@ -37,15 +36,14 @@ export default function SignUp() {
     return <AuthSpinner />;
   }
 
-  if (currentUser) {
-    return <NotFound />;
-  }
-
   // console.log(error?.code);
-  return (
-    <FlexCard>
-      <SignUpHeader />
-      <SignUpForm onSubmit={signUpHandler} firebaseError={error?.code} />
-    </FlexCard>
-  );
+
+  if (!currentUser) {
+    return (
+      <FlexCard>
+        <SignUpHeader />
+        <SignUpForm onSubmit={signUpHandler} firebaseError={error?.code} />
+      </FlexCard>
+    );
+  }
 }
