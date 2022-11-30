@@ -68,6 +68,10 @@ export default function EditPost() {
     return <Redirect to="/error" />;
   }
 
+  if (currentUser.uid !== uid) {
+    return <Redirect to="/home" />;
+  }
+
   const defaultValues = {
     title: userPostSnapshotValue.title,
     description: userPostSnapshotValue.description,
