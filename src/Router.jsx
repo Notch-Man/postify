@@ -1,6 +1,5 @@
 import React, { Suspense } from "react";
 import { Redirect, Switch, Route } from "react-router";
-import PageSpinner from "./components/UI/PageSpinner";
 
 const Home = React.lazy(() => import("./pages/Home"));
 const Login = React.lazy(() => import("./pages/Login"));
@@ -11,7 +10,7 @@ const Error = React.lazy(() => import("./pages/Error"));
 
 export default function Router() {
   return (
-    <Suspense fallback={<PageSpinner />}>
+    <Suspense fallback={<div className="text-center mt-5">Loading...</div>}>
       <Switch>
         <Route path="/" exact>
           <Redirect to="/home" />
