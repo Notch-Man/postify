@@ -9,7 +9,7 @@ const PostActions = ({ onDelete, uid, id }) => {
   return (
     <div>
       {(currentUser.uid === uid ||
-        currentUser.uid === "cWE75wzlJlXQ421bJVqEDKxnuWi2") && (
+        currentUser.uid === process.env.REACT_ADMIN_UID) && (
         <>
           <Button variant="danger" onClick={onDelete}>
             Delete

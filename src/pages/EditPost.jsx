@@ -22,8 +22,9 @@ export default function EditPost() {
   const userPostRef = child(ref(database), `/user/${uid}/${id}`);
   const postRef = child(ref(database), `/posts/${id}`);
 
-  const [postSnapshot, postLoading, _] = useObject(postRef);
-  const [userPostSnapshot, userPostLoading, __] = useObject(userPostRef);
+  const [postSnapshot, postLoading, postError] = useObject(postRef);
+  const [userPostSnapshot, userPostLoading, userPostError] =
+    useObject(userPostRef);
 
   const currentDate = moment().format("MMMM Do YYYY");
 
@@ -50,13 +51,21 @@ export default function EditPost() {
     const updates = {};
     updates[`/user/${uid}/${id}/`] = editedUserPost;
     updates[`/posts/${id}/`] = editedPost;
+    try {
+      await update(ref(database), updates);
+    } catch (err) {
+      history.replace("/error");
+    }
 
-    await update(ref(database), updates);
     history.replace("/home");
   };
 
   if (postLoading || userPostLoading) {
     return <PostSpinner />;
+  }
+
+  if (postError || userPostError) {
+    return <Redirect to="/error" />;
   }
 
   const defaultValues = {

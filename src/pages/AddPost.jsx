@@ -36,9 +36,12 @@ const AddPost = () => {
     updates[`/posts/${postId}`] = publicPost;
     updates[`/user/${uid}/${postId}`] = post;
 
-    await update(ref(database), updates);
-
-    history.push("/home");
+    try {
+      await update(ref(database), updates);
+    } catch (err) {
+      history.replace("/error");
+    }
+    history.replace("/home");
   };
 
   if (!currentUser) {

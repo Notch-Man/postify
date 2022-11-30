@@ -25,7 +25,7 @@ export default function Posts() {
   }
 
   if (error) {
-    return <Redirect to="/404" />;
+    return <Redirect to="/error" />;
   }
 
   return (

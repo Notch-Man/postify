@@ -7,7 +7,7 @@ import PostActions from "../components/Home/LoggedIn/PostActions";
 import AddPost from "./AddPost";
 import PostSpinner from "../components/UI/PostSpinner";
 
-import { Link, Route, Switch } from "react-router-dom";
+import { Link, Route, Switch, Redirect } from "react-router-dom";
 import { AuthContext } from "../store";
 import { Container } from "react-bootstrap";
 
@@ -20,9 +20,13 @@ import EditPost from "./EditPost";
 export default function Home() {
   const { currentUser } = useContext(AuthContext);
 
-  const [snapshot, loading, _] = useObject(
+  const [snapshot, loading, error] = useObject(
     ref(database, `user/${currentUser?.uid}`)
   );
+
+  if (error) {
+    return <Redirect to="/error" />;
+  }
 
   if (!currentUser) {
     return (

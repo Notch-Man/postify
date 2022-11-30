@@ -26,20 +26,25 @@ export default function PostDetail() {
   const postData = snapshot?.val();
 
   const deletePostHandler = async () => {
-    await set(postRef, null);
-    await set(userPostRef, null);
+    try {
+      await set(postRef, null);
+      await set(userPostRef, null);
+    } catch (err) {
+      history.replace("/error");
+    }
+
     history.replace("/home");
   };
-
-  if (error) {
-    return <Redirect to="/404" />;
-  }
 
   if (loading) {
     return <PostSpinner />;
   }
   if (!postData) {
     return <Redirect to="/404" />;
+  }
+
+  if (error) {
+    return <Redirect to="/error" />;
   }
 
   if (!currentUser) {
