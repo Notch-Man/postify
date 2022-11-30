@@ -53,9 +53,11 @@ const MainHeader = () => {
             {currentUser && <Nav.Link onClick={handleLogout}>Logout</Nav.Link>}
           </Nav>
           <Nav>
-            <Navbar.Text className="text-white">
-              {currentUser?.displayName}
-            </Navbar.Text>
+            {currentUser && (
+              <Navbar.Text className="text-white">
+                {currentUser?.displayName}
+              </Navbar.Text>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>
